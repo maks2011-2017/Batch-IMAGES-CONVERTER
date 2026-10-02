@@ -1,11 +1,22 @@
 import os
+from gooey import Gooey, GooeyParser
 from PIL import Image
 
-def convert_ico_to_png():
-    current_dir = input("Enter the path to your folder with .ico files \n Example: M:\Windows 7 Icons \n Your path: ")
-    from_format = input("Enter the ORIGINAL FILES format. Example: ico \n WRITE VALID FORMATS AND ok. ")
-    to_format = input("Enter the format you want your pictures to be converted to. EXAMPLE: png. \n Go ahead: ")
 
+@Gooey
+def convert_ico_to_png():
+    parser = GooeyParser()
+    parser.add_argument("current_dir", action="store", help="Your directory to the images.", widget="DirChooser")
+    parser.add_argument("from_format", action="store", help="The initial format you want to convert from. for example: ico")
+    parser.add_argument("to_format", action="store", help="The initial format you want to convert to. for example: png")
+    # current_dir = input("Enter the path to your folder with .ico files \n Example: M:\Windows 7 Icons \n Your path: ")
+    # from_format = input("Enter the ORIGINAL FILES format. Example: ico \n WRITE VALID FORMATS AND ok. ")
+    # to_format = input("Enter the format you want your pictures to be converted to. EXAMPLE: png. \n Go ahead: ")
+    args = parser.parse_args()
+    current_dir = args.current_dir
+    from_format = args.from_format
+    to_format = args.to_format
+    
     from_format = from_format.replace(".", "")
     to_format = to_format.replace(".","")
     # os.path.dirname(os.path.abspath(__file__))
